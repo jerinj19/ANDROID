@@ -1,0 +1,176 @@
+#xml
+
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/TV"
+        android:layout_width="177dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="150dp"
+        android:fontFamily="@font/abril_fatface"
+        android:text="CALCULATOR"
+        android:textAlignment="center"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et1"
+        android:layout_width="144dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="39dp"
+        android:ems="10"
+        android:hint="ENTER NUM 1"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/et2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/TV" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="176dp"
+        android:layout_marginEnd="44dp"
+
+        android:text="+"
+        android:onClick="add"
+        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintHorizontal_bias="0.615"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et1" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="58dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="408dp"
+        android:layout_marginEnd="22dp"
+        android:onClick="mul"
+        android:text="x"
+        app:layout_constraintEnd_toStartOf="@+id/button4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TV" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="58dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="268dp"
+        android:layout_marginEnd="140dp"
+        android:text="-"
+        android:onClick="sub"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/et1"
+        app:layout_constraintTop_toBottomOf="@+id/TV" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="58dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="154dp"
+        android:onClick="div"
+        android:text="/"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
+
+    <EditText
+        android:id="@+id/et2"
+        android:layout_width="157dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="12dp"
+        android:ems="10"
+        android:hint="ENTER NUM 2"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/et1"
+        app:layout_constraintTop_toTopOf="@+id/TV" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+#java
+
+package com.example.myapplication;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+public class MainActivity extends AppCompatActivity {
+EditText et1;
+    EditText et2;
+    TextView TV;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        et1=(EditText) findViewById(R.id.et1);
+        et2=(EditText) findViewById(R.id.et2);
+        TV=(TextView) findViewById(R.id.TV);
+    }
+
+    public void add(View view) {
+        double n1=Double.parseDouble(et1.getText().toString());
+        double n2=Double.parseDouble(et2.getText().toString());
+        double sum=n1+n2;
+        TV.setText(Double.toString(sum));
+    }
+
+    public void mul(View view) {
+        double n1=Double.parseDouble(et1.getText().toString());
+        double n2=Double.parseDouble(et2.getText().toString());
+        double sum=n1*n2;
+        TV.setText(Double.toString(sum));
+    }
+
+    public void sub(View view) {
+        double n1=Double.parseDouble(et1.getText().toString());
+        double n2=Double.parseDouble(et2.getText().toString());
+        double sum=n1-n2;
+        TV.setText(Double.toString(sum));
+    }
+
+    public void div(View view) {
+        double n1=Double.parseDouble(et1.getText().toString());
+        double n2=Double.parseDouble(et2.getText().toString());
+        double sum=n1/n2;
+        TV.setText(Double.toString(sum));
+    }
+}
